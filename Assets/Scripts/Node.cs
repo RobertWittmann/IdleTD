@@ -11,6 +11,10 @@ public class Node
     public Node prevNode;
     public float minDistance;
 
+    public int g;
+    public int h;
+    public int f;
+
     public Node(Vector2Int coordinates, bool isWalkable, int weight)
     {
         this.coordinates = coordinates;
@@ -19,5 +23,9 @@ public class Node
 
         minDistance = Mathf.Infinity;
         prevNode = null;
+
+        g = 0;
+        h = 0;
+        f = 0;
     }
 }

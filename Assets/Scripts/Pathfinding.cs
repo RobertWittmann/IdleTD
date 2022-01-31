@@ -16,11 +16,12 @@ public class Pathfinding : MonoBehaviour
     Node destinationNode;
     Node currentSearchNode;
 
-    Queue<Node> frontier = new Queue<Node>();
-    Dictionary<Vector2Int, Node> reached = new Dictionary<Vector2Int, Node>();
     Vector2Int[] directions = { Vector2Int.right, Vector2Int.left, Vector2Int.up, Vector2Int.down };
     GridManager gridManager;
     Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
+
+    List<Node> openList = new List<Node>();
+    List<Node> closedList = new List<Node>();
 
     private void Awake()
     {
@@ -36,31 +37,82 @@ public class Pathfinding : MonoBehaviour
 
     private void Start()
     {
-        DijkstraSearch();
+        AStar();
     }
 
-    private void DijkstraSearch()
+    private void AStar()
     {
-        List<Node> queue = new List<Node>();
-        queue.Add(startNode);
-        while (queue.Any())
-        {
-            queue = queue.OrderBy(x => x.minDistance).ToList();
-            Node node = queue.First();
-            queue.Remove(node);
-            List<Node> neighbours = new List<Node>();
-            foreach (Vector2Int direction in directions)
-            {
-                Vector2Int neighbourCoords = node.coordinates + direction;
-                if (grid.ContainsKey(neighbourCoords))
-                {
-                    neighbours.Add(grid[neighbourCoords]);
-                }
-            }
-            foreach (Node neighbour in neighbours)
-            {
+        openList.Add(startNode);
 
+        while (openList.Count > 0)
+        {
+            openList = openList.OrderBy(n => n.f).ToList();
+
+            currentSearchNode = openList.First();
+            openList.Remove(currentSearchNode);
+            currentSearchNode.isExplored = true;
+            closedList.Add(currentSearchNode);
+
+            if (currentSearchNode == destinationNode)
+            {
+                BuildPath();
+                break;
             }
+
+            List<Node> neighbours = FindNeighbours();
+            foreach (Node child in neighbours)
+            {
+                if (closedList.Contains(child))
+                {
+                    continue;
+                }
+                child.g = currentSearchNode.g + child.weight;
+                child.h = DistanceToDestination(child);
+                child.f = child.g + child.h;
+
+                if (openList.Contains(child))
+                {
+                    if (child.g > openList[openList.IndexOf(child)].g)
+                    {
+                        continue;
+                    }
+                }
+                child.prevNode = currentSearchNode;
+                openList.Add(child);
+            }
+        }
+    }
+
+    private int DistanceToDestination(Node node)
+    {
+        int distanceX = Mathf.Abs(destinationNode.coordinates.x - node.coordinates.x);
+        int distanceY = Mathf.Abs(destinationNode.coordinates.y - node.coordinates.y);
+        return (int)(Mathf.Pow(distanceX, 2) + Mathf.Pow(distanceY, 2));
+    }
+
+    private List<Node> FindNeighbours()
+    {
+        List<Node> neighbours = new List<Node>();
+
+        foreach (Vector2Int direction in directions)
+        {
+            Vector2Int neighbourCoords = currentSearchNode.coordinates + direction;
+            if (grid.ContainsKey(neighbourCoords))
+            {
+                neighbours.Add(grid[neighbourCoords]);
+            }
+        }
+        return neighbours;
+    }
+
+    private void BuildPath()
+    {
+        Node currentBuildNode = destinationNode;
+
+        while (currentBuildNode != startNode)
+        {
+            currentBuildNode.isPath = true;
+            currentBuildNode = currentBuildNode.prevNode;
         }
     }
 }
