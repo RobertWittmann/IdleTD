@@ -1,16 +1,15 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
     [SerializeField] GameObject tilePrefab;
-    [SerializeField] Vector2Int gridDimensions;
-    [SerializeField] int gridSize = 10;
-    public int GridSize { get { return gridSize; } }
-
+    [SerializeField] int gridDimension;
+    Vector2Int gridDimensions;
     Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
     public Dictionary<Vector2Int, Node> Grid { get { return grid; } }
+    int gridSize;
+    public int GridSize { get { return gridSize; } }
 
     private void Awake()
     {
@@ -19,13 +18,20 @@ public class GridManager : MonoBehaviour
 
     private void GenerateTiles()
     {
+        gridDimensions.x = gridDimension;
+        gridDimensions.y = gridDimension;
+
+        gridSize = 200 / gridDimension;
+        int tileScale = 200 / gridDimension;
+        tilePrefab.transform.localScale = new Vector3(tileScale, tileScale, tileScale);
+
         for (int x = 0; x < gridDimensions.x; x++)
         {
             for (int y = 0; y < gridDimensions.y; y++)
             {
                 Vector2Int coordinates = new Vector2Int(x, y);
-                grid.Add(coordinates, new Node(coordinates, true, Random.Range(1, 5)));
-                GameObject newTile = Instantiate(tilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity);
+                grid.Add(coordinates, new Node(coordinates, true, Random.Range(1, 5) * 10));
+                GameObject newTile = Instantiate(tilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity, transform);
             }
         }
     }

@@ -43,7 +43,12 @@ public class Pathfinding : MonoBehaviour
     private void AStar()
     {
         openList.Add(startNode);
+        StartCoroutine(SlowPathfinding());
 
+    }
+
+    IEnumerator SlowPathfinding()
+    {
         while (openList.Count > 0)
         {
             openList = openList.OrderBy(n => n.f).ToList();
@@ -80,6 +85,7 @@ public class Pathfinding : MonoBehaviour
                 child.prevNode = currentSearchNode;
                 openList.Add(child);
             }
+            yield return new WaitForSeconds(0.0f);
         }
     }
 
