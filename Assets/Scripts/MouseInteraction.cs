@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MouseInteraction : MonoBehaviour
 {
@@ -31,5 +32,10 @@ public class MouseInteraction : MonoBehaviour
         {
             Debug.Log("Nothing hit");
         }
+    }
+
+    public void OnReset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

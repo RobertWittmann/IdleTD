@@ -55,9 +55,13 @@ public class Pathfinding : MonoBehaviour
     {
         while (openList.Count > 0)
         {
-            openList = openList.OrderBy(n => n.f).ToList();
 
             currentSearchNode = openList.First();
+
+            foreach (Node node in openList)
+            {
+                if (node.f < currentSearchNode.f) currentSearchNode = node;
+            }
 
             openList.Remove(currentSearchNode);
             currentSearchNode.isExplored = true;
@@ -78,7 +82,7 @@ public class Pathfinding : MonoBehaviour
                 }
                 if (openList.Contains(child))
                 {
-                    if (child.g > openList[openList.IndexOf(child)].g)
+                    if (currentSearchNode.g + child.weight > child.g)
                     {
                         continue;
                     }
