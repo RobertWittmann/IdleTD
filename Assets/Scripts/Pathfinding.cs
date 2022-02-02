@@ -8,9 +8,8 @@ public class Pathfinding : MonoBehaviour
 {
     [SerializeField] GameEvent pathFound;
     [SerializeField] GameEvent noPathFound;
-    [SerializeField] Vector2Int startCoordinates;
-    public Vector2Int StartCoordinates { get { return startCoordinates; } }
-
+    public Vector2IntReference startCoordinatesVariable;
+    Vector2Int startCoordinates;
     [SerializeField] Vector2Int destinationCoordinates;
     public Vector2Int DestinationCoordinates { get { return destinationCoordinates; } }
 
@@ -32,14 +31,15 @@ public class Pathfinding : MonoBehaviour
         if (gridManager != null)
         {
             grid = gridManager.Grid;
-            startNode = grid[startCoordinates];
-            startNode.minDistance = 0;
-            destinationNode = grid[destinationCoordinates];
         }
     }
 
     private void Start()
     {
+        startCoordinates = startCoordinatesVariable.Value;
+        startNode = grid[startCoordinates];
+        startNode.minDistance = 0;
+        destinationNode = grid[destinationCoordinates];
         AStar();
     }
 
@@ -47,12 +47,6 @@ public class Pathfinding : MonoBehaviour
     {
         ResetPath();
         openList.Add(startNode);
-        StartCoroutine(SlowPathfinding());
-    }
-
-
-    IEnumerator SlowPathfinding()
-    {
         while (openList.Count > 0)
         {
 
@@ -64,7 +58,7 @@ public class Pathfinding : MonoBehaviour
             }
 
             openList.Remove(currentSearchNode);
-            currentSearchNode.isExplored = true;
+            // currentSearchNode.isExplored = true;
             closedList.Add(currentSearchNode);
 
             if (currentSearchNode == destinationNode)
@@ -95,7 +89,6 @@ public class Pathfinding : MonoBehaviour
 
                 openList.Add(child);
             }
-            yield return new WaitForSeconds(0.0f);
         }
         if (openList.Count == 0)
         {
@@ -138,18 +131,21 @@ public class Pathfinding : MonoBehaviour
             currentBuildNode.isPath = true;
             currentBuildNode = currentBuildNode.prevNode;
         }
+        path.Add(currentBuildNode);
+        currentBuildNode.isPath = true;
         path.Reverse();
         pathFound.Raise();
+        Debug.Log("path complete");
     }
 
     private void ResetPath()
     {
         openList.Clear();
         closedList.Clear();
-        foreach (KeyValuePair<Vector2Int, Node> entry in grid)
-        {
-            entry.Value.isExplored = false;
-            entry.Value.isPath = false;
-        }
+        // foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+        // {
+        //     entry.Value.isExplored = false;
+        //     entry.Value.isPath = false;
+        // }
     }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     [SerializeField] GameObject tilePrefab;
+    [SerializeField] GameObject spawnTilePrefab;
+    [SerializeField] Vector2IntReference spawnPointNorth;
+    [SerializeField] Vector2IntReference spawnPointEast;
+    [SerializeField] Vector2IntReference spawnPointSouth;
+    [SerializeField] Vector2IntReference spawnPointWest;
     [SerializeField] int gridDimension;
     [SerializeField] int tileScaleModifier = 200;
     Vector2Int gridDimensions;
@@ -32,7 +37,31 @@ public class GridManager : MonoBehaviour
             {
                 Vector2Int coordinates = new Vector2Int(x, y);
                 grid.Add(coordinates, new Node(coordinates, true, Random.Range(1, 5) * 10));
-                GameObject newTile = Instantiate(tilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity, transform);
+
+                if (x == 0 && y == -gridDimension / 2)
+                {
+                    GameObject spawnTile = Instantiate(spawnTilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity, transform);
+                    spawnTile.GetComponent<Pathfinding>().startCoordinatesVariable = spawnPointNorth;
+                }
+                else if (x == 0 && y == gridDimension / 2)
+                {
+                    GameObject spawnTile = Instantiate(spawnTilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity, transform);
+                    spawnTile.GetComponent<Pathfinding>().startCoordinatesVariable = spawnPointSouth;
+                }
+                else if (y == 0 && x == -gridDimension / 2)
+                {
+                    GameObject spawnTile = Instantiate(spawnTilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity, transform);
+                    spawnTile.GetComponent<Pathfinding>().startCoordinatesVariable = spawnPointWest;
+                }
+                else if (y == 0 && x == gridDimension / 2)
+                {
+                    GameObject spawnTile = Instantiate(spawnTilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity, transform);
+                    spawnTile.GetComponent<Pathfinding>().startCoordinatesVariable = spawnPointEast;
+                }
+                else
+                {
+                    GameObject newTile = Instantiate(tilePrefab, new Vector3(x * gridSize, y * gridSize, 0f), Quaternion.identity, transform);
+                }
             }
         }
     }
