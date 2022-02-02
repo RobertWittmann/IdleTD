@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
+    [SerializeField] GameEvent pathFound;
+    [SerializeField] GameEvent noPathFound;
     [SerializeField] Vector2Int startCoordinates;
     public Vector2Int StartCoordinates { get { return startCoordinates; } }
 
@@ -22,6 +24,7 @@ public class Pathfinding : MonoBehaviour
 
     List<Node> openList = new List<Node>();
     List<Node> closedList = new List<Node>();
+    List<Node> path = new List<Node>();
 
     private void Awake()
     {
@@ -40,12 +43,13 @@ public class Pathfinding : MonoBehaviour
         AStar();
     }
 
-    private void AStar()
+    public void AStar()
     {
+        ResetPath();
         openList.Add(startNode);
         StartCoroutine(SlowPathfinding());
-
     }
+
 
     IEnumerator SlowPathfinding()
     {
@@ -54,6 +58,7 @@ public class Pathfinding : MonoBehaviour
             openList = openList.OrderBy(n => n.f).ToList();
 
             currentSearchNode = openList.First();
+
             openList.Remove(currentSearchNode);
             currentSearchNode.isExplored = true;
             closedList.Add(currentSearchNode);
@@ -67,14 +72,10 @@ public class Pathfinding : MonoBehaviour
             List<Node> neighbours = FindNeighbours();
             foreach (Node child in neighbours)
             {
-                if (closedList.Contains(child))
+                if (closedList.Contains(child) || !child.isWalkable)
                 {
                     continue;
                 }
-                child.g = currentSearchNode.g + child.weight;
-                child.h = DistanceToDestination(child);
-                child.f = child.g + child.h;
-
                 if (openList.Contains(child))
                 {
                     if (child.g > openList[openList.IndexOf(child)].g)
@@ -82,10 +83,20 @@ public class Pathfinding : MonoBehaviour
                         continue;
                     }
                 }
+
+                child.g = currentSearchNode.g + child.weight;
+                child.h = DistanceToDestination(child);
+                child.f = child.g + child.h;
                 child.prevNode = currentSearchNode;
+
                 openList.Add(child);
             }
             yield return new WaitForSeconds(0.0f);
+        }
+        if (openList.Count == 0)
+        {
+            noPathFound.Raise();
+            Debug.Log("No path found");
         }
     }
 
@@ -105,7 +116,8 @@ public class Pathfinding : MonoBehaviour
             Vector2Int neighbourCoords = currentSearchNode.coordinates + direction;
             if (grid.ContainsKey(neighbourCoords))
             {
-                neighbours.Add(grid[neighbourCoords]);
+                Node neighbour = grid[neighbourCoords];
+                neighbours.Add(neighbour);
             }
         }
         return neighbours;
@@ -113,12 +125,27 @@ public class Pathfinding : MonoBehaviour
 
     private void BuildPath()
     {
+        path.Clear();
         Node currentBuildNode = destinationNode;
 
         while (currentBuildNode != startNode)
         {
+            path.Add(currentBuildNode);
             currentBuildNode.isPath = true;
             currentBuildNode = currentBuildNode.prevNode;
+        }
+        path.Reverse();
+        pathFound.Raise();
+    }
+
+    private void ResetPath()
+    {
+        openList.Clear();
+        closedList.Clear();
+        foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+        {
+            entry.Value.isExplored = false;
+            entry.Value.isPath = false;
         }
     }
 }

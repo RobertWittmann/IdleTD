@@ -30,6 +30,6 @@ public class TileLabeler : MonoBehaviour
         Node node = gridManager.GetNode(coordinates);
         if (node == null) return;
 
-        label.text = $"{coordinates.x}, {coordinates.y} \n w: {node.weight} \n f: {node.f}";
+        label.text = $"{coordinates.x}, {coordinates.y} \n w: {node.weight} \n g: {node.g} \n h: {node.h} \n f: {node.f}";
     }
 }

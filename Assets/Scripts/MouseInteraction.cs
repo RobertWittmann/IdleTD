@@ -4,6 +4,13 @@ using UnityEngine.InputSystem;
 public class MouseInteraction : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] GameEvent updatePathfinding;
+    GridManager gridManager;
+
+    private void Awake()
+    {
+        gridManager = GetComponent<GridManager>();
+    }
     public void OnClick()
     {
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -12,7 +19,13 @@ public class MouseInteraction : MonoBehaviour
 
         if (hitInfo.collider)
         {
-            Debug.Log(hitInfo.transform.gameObject.GetComponent<TileColour>().Coordinates);
+            if (hitInfo.transform.gameObject.GetComponent<TileColour>())
+            {
+                Node node = gridManager.GetNode(hitInfo.transform.gameObject.GetComponent<TileColour>().Coordinates);
+                node.isWalkable = !node.isWalkable;
+                updatePathfinding.Raise();
+                Debug.Log(node.coordinates);
+            }
         }
         else
         {
