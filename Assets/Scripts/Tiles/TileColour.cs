@@ -21,8 +21,8 @@ public class TileColour : MonoBehaviour
     private void Start()
     {
         if (gridManager == null) return;
-        coordinates.x = Mathf.RoundToInt(transform.position.x / gridManager.GridSize);
-        coordinates.y = Mathf.RoundToInt(transform.position.y / gridManager.GridSize);
+        coordinates.x = Mathf.RoundToInt(transform.position.x);
+        coordinates.y = Mathf.RoundToInt(transform.position.y);
     }
 
     void Update()

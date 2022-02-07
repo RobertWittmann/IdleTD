@@ -8,7 +8,7 @@ public class Pathfinding : MonoBehaviour
 {
     [SerializeField] GameEvent pathFound;
     [SerializeField] GameEvent noPathFound;
-    public Vector2IntReference startCoordinatesVariable;
+    // public Vector2IntReference startCoordinatesVariable;
     Vector2Int startCoordinates;
     [SerializeField] Vector2Int destinationCoordinates;
     public Vector2Int DestinationCoordinates { get { return destinationCoordinates; } }
@@ -24,6 +24,7 @@ public class Pathfinding : MonoBehaviour
     List<Node> openList = new List<Node>();
     List<Node> closedList = new List<Node>();
     List<Node> path = new List<Node>();
+    List<Node> emptyPath = new List<Node>();
 
     private void Awake()
     {
@@ -34,17 +35,18 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        startCoordinates = startCoordinatesVariable.Value;
-        startNode = grid[startCoordinates];
-        startNode.minDistance = 0;
-        destinationNode = grid[destinationCoordinates];
-        AStar();
+        // startCoordinates = startCoordinatesVariable.Value;
+        // AStar();
     }
 
-    public void AStar()
+    public List<Node> AStar(Vector2Int destination)
     {
+        startCoordinates = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        startNode = grid[startCoordinates];
+        startNode.minDistance = 0;
+        destinationNode = grid[destination];
         ResetPath();
         openList.Add(startNode);
         while (openList.Count > 0)
@@ -63,7 +65,7 @@ public class Pathfinding : MonoBehaviour
 
             if (currentSearchNode == destinationNode)
             {
-                BuildPath();
+                path = BuildPath();
                 break;
             }
 
@@ -95,6 +97,7 @@ public class Pathfinding : MonoBehaviour
             noPathFound.Raise();
             Debug.Log("No path found");
         }
+        return path;
     }
 
     private int DistanceToDestination(Node node)
@@ -120,7 +123,7 @@ public class Pathfinding : MonoBehaviour
         return neighbours;
     }
 
-    private void BuildPath()
+    private List<Node> BuildPath()
     {
         path.Clear();
         Node currentBuildNode = destinationNode;
@@ -136,6 +139,7 @@ public class Pathfinding : MonoBehaviour
         path.Reverse();
         pathFound.Raise();
         Debug.Log("path complete");
+        return path;
     }
 
     private void ResetPath()

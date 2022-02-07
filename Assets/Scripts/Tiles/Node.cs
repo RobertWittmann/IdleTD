@@ -15,15 +15,15 @@ public class Node
     public int h;
     public int f;
 
-    public Node(Vector2Int coordinates, bool isWalkable, int weight)
+    public Node(Vector2Int coordinates, bool isWalkable)
     {
         this.coordinates = coordinates;
-        this.weight = weight;
         this.isWalkable = isWalkable;
 
         minDistance = Mathf.Infinity;
         prevNode = null;
 
+        weight = 0;
         g = 0;
         h = 0;
         f = 0;

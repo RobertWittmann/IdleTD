@@ -25,8 +25,8 @@ public class TileLabeler : MonoBehaviour
     {
         if (gridManager == null) return;
 
-        coordinates.x = Mathf.RoundToInt(transform.parent.position.x / gridManager.GridSize);
-        coordinates.y = Mathf.RoundToInt(transform.parent.position.y / gridManager.GridSize);
+        coordinates.x = Mathf.RoundToInt(transform.parent.position.x);
+        coordinates.y = Mathf.RoundToInt(transform.parent.position.y);
         Node node = gridManager.GetNode(coordinates);
         if (node == null) return;
 

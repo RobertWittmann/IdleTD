@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class MouseInteraction : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] GameEvent updatePathfinding;
+    [SerializeField] GameEvent updateSpawnerPathfinding;
+    [SerializeField] GameEvent updateUnitPathfinding;
     GridManager gridManager;
 
     private void Awake()
@@ -32,7 +33,8 @@ public class MouseInteraction : MonoBehaviour
 
                 Node node = gridManager.GetNode(hitInfo.transform.gameObject.GetComponent<TileColour>().Coordinates);
                 node.isWalkable = !node.isWalkable;
-                updatePathfinding.Raise();
+                updateSpawnerPathfinding.Raise();
+                updateUnitPathfinding.Raise();
                 Debug.Log(node.coordinates);
             }
         }

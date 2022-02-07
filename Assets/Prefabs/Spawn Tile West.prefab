@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2079262281700767229
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -6361085745453588731, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: spawnPosition.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: be3050e73655f074abfb2756da68b45a, type: 2}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374822367669633438, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3078062685207904895, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: pathFound
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b2112dbd0e0c2044b71963ef2d04be7, type: 2}
+    - target: {fileID: 3078062685207904895, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: noPathFound
+      value: 
+      objectReference: {fileID: 11400000, guid: bdfb7313da18c334499a62cb6da0301d, type: 2}
+    - target: {fileID: 3195207444823628343, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: startCoordinatesVariable.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: be3050e73655f074abfb2756da68b45a, type: 2}
+    - target: {fileID: 8427582602769997925, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: m_Name
+      value: Spawn Tile West
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+--- !u!1 &7507447521065194904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8427582602769997925, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+  m_PrefabInstance: {fileID: 2079262281700767229}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9211265179973617070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507447521065194904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe6cd49440ee543bdf13a0dea78122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFound: {fileID: 0}
+  noPathFound: {fileID: 0}
+  destinationCoordinates: {x: 0, y: 0}

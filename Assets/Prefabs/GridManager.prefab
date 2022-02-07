@@ -48,23 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 8427582602769997925, guid: 24b3bd3b63d0f7a42928d1cb83cffe83, type: 3}
-  spawnTilePrefab: {fileID: 8427582602769997925, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
-  spawnPointNorth:
-    UseConstant: 0
-    ConstantValue: {x: 0, y: 0}
-    Variable: {fileID: 11400000, guid: ed134e1b2eecbe246883124ab08f2f5e, type: 2}
-  spawnPointEast:
-    UseConstant: 0
-    ConstantValue: {x: 0, y: 0}
-    Variable: {fileID: 11400000, guid: 7a1ff736358ed0b4296d7915e8b2d41a, type: 2}
-  spawnPointSouth:
-    UseConstant: 0
-    ConstantValue: {x: 0, y: 0}
-    Variable: {fileID: 11400000, guid: c5b45bc806907aa4da4408f158082131, type: 2}
-  spawnPointWest:
-    UseConstant: 0
-    ConstantValue: {x: 0, y: 0}
-    Variable: {fileID: 11400000, guid: be3050e73655f074abfb2756da68b45a, type: 2}
+  spawnerNorth: {fileID: 8427582602769997925, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+  spawnerEast: {fileID: 6108891065757901763, guid: 28c07d484b79b144cbd08c4a4bba7281, type: 3}
+  spawnerSouth: {fileID: 8289163206184644865, guid: eb11ffb295956a546ace74623eda8f71, type: 3}
+  spawnerWest: {fileID: 7507447521065194904, guid: 36cf49f91054583468f15150a840a852, type: 3}
   gridDimension: 10
   tileScaleModifier: 100
 --- !u!114 &4124324299592087251
@@ -82,7 +69,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
-  updatePathfinding: {fileID: 11400000, guid: e709329413a9b6d40bf82d5012d5abb3, type: 2}
+  updateSpawnerPathfinding: {fileID: 11400000, guid: e709329413a9b6d40bf82d5012d5abb3, type: 2}
+  updateUnitPathfinding: {fileID: 11400000, guid: dcb01195128d3274a80e49c1056c2c10, type: 2}
 --- !u!114 &4124324299592087250
 MonoBehaviour:
   m_ObjectHideFlags: 0
