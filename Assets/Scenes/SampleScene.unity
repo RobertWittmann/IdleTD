@@ -258,6 +258,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4124324299592087251, guid: 6c388438453583b4eb99fcd2bf927f83, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 4124324299592087259, guid: 6c388438453583b4eb99fcd2bf927f83, type: 3}
       propertyPath: m_Name
       value: GridManager

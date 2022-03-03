@@ -32,11 +32,11 @@ public class GridManager : MonoBehaviour
 
                 if (x == 0 && y == -gridDimension / 2)
                 {
-                    // GameObject spawnTile = Instantiate(spawnerNorth, new Vector3(x, y, 0f), Quaternion.identity, transform);
+                    GameObject spawnTile = Instantiate(spawnerNorth, new Vector3(x, y, 0f), Quaternion.identity, transform);
                 }
                 else if (x == 0 && y == gridDimension / 2)
                 {
-                    // GameObject spawnTile = Instantiate(spawnerSouth, new Vector3(x, y, 0f), Quaternion.identity, transform);
+                    GameObject spawnTile = Instantiate(spawnerSouth, new Vector3(x, y, 0f), Quaternion.identity, transform);
                 }
                 else if (y == 0 && x == -gridDimension / 2)
                 {
@@ -44,7 +44,7 @@ public class GridManager : MonoBehaviour
                 }
                 else if (y == 0 && x == gridDimension / 2)
                 {
-                    // GameObject spawnTile = Instantiate(spawnerEast, new Vector3(x, y, 0f), Quaternion.identity, transform);
+                    GameObject spawnTile = Instantiate(spawnerEast, new Vector3(x, y, 0f), Quaternion.identity, transform);
                 }
                 else
                 {
