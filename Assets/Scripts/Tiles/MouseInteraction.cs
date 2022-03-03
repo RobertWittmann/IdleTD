@@ -29,6 +29,11 @@ public class MouseInteraction : MonoBehaviour
 
                 Node node = gridManager.GetNode(hitInfo.transform.gameObject.GetComponent<TileColour>().Coordinates);
                 node.isWalkable = !node.isWalkable;
+                foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+                {
+                    entry.Value.isExplored = false;
+                    entry.Value.isPath = false;
+                }
                 updateSpawnerPathfinding.Raise();
                 updateUnitPathfinding.Raise();
                 // Debug.Log(node.coordinates);

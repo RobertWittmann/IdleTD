@@ -135,10 +135,5 @@ public class Pathfinding : MonoBehaviour
     {
         openList.Clear();
         closedList.Clear();
-        foreach (KeyValuePair<Vector2Int, Node> entry in grid)
-        {
-            entry.Value.isExplored = false;
-            entry.Value.isPath = false;
-        }
     }
 }

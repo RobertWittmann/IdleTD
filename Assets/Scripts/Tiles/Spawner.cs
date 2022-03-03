@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour
         while (spawnActive)
         {
             GameObject unit = Instantiate(spawnUnit, transform.position, Quaternion.identity, transform);
-            unit.GetComponent<UnitMover>().spawner = transform.gameObject;
+            unit.GetComponent<UnitMover>().spawner = this;
             unit.GetComponent<UnitMover>().SetPath(path);
             yield return new WaitForSeconds(spawnInterval.Value);
         }

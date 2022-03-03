@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class UnitMover : MonoBehaviour
 {
-    public GameObject spawner;
+    public Spawner spawner;
     [SerializeField] float moveInterval;
     private Pathfinding pathfinding;
     private GridManager gridManager;
-    private List<Node> unitPath;
+    private List<Node> unitPath = new List<Node>();
+    private Coroutine moving;
 
     private void Awake()
     {
@@ -26,21 +27,20 @@ public class UnitMover : MonoBehaviour
         }
         Destroy(gameObject);
     }
+    public void CorrectedPath()
+    {
+        if (moving != null) StopCoroutine(moving);
+
+        List<Node> gridPath = spawner.GetPath();
+
+        unitPath = pathfinding.AStar(new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y)), new Vector2Int(0, 0));
+
+        SetPath(unitPath);
+    }
 
     public void SetPath(List<Node> path)
     {
         unitPath = path;
-        StopCoroutine(Move());
-        StartCoroutine(Move());
-    }
-
-    public void CorrectedPath()
-    {
-        StopCoroutine(Move());
-
-        unitPath.Clear();
-        unitPath = pathfinding.AStar(new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y)), new Vector2Int(0, 0));
-
-        SetPath(unitPath);
+        moving = StartCoroutine(Move());
     }
 }
