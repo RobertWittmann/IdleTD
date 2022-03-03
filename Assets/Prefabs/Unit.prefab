@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ff540d66c42f64596b7bf538fe965e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
   moveInterval: 0.2
-  moving: 1
 --- !u!114 &-8533485451470495705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2052588495383041009}
         m_TargetAssemblyTypeName: UnitMover, Assembly-CSharp
-        m_MethodName: UpdatePath
+        m_MethodName: CorrectedPath
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

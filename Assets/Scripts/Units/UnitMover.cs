@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UnitMover : MonoBehaviour
 {
     public GameObject spawner;
     [SerializeField] float moveInterval;
-    [SerializeField] bool moving = true;
     private Pathfinding pathfinding;
     private GridManager gridManager;
-    private List<Node> path;
+    private List<Node> unitPath;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class UnitMover : MonoBehaviour
 
     IEnumerator Move()
     {
-        foreach (Node point in path)
+        foreach (Node point in unitPath.ToList())
         {
             transform.position = new Vector3(point.coordinates.x, point.coordinates.y, 0);
             yield return new WaitForSeconds(moveInterval);
@@ -29,64 +29,18 @@ public class UnitMover : MonoBehaviour
 
     public void SetPath(List<Node> path)
     {
-        this.path = path;
-        StopAllCoroutines();
+        unitPath = path;
+        StopCoroutine(Move());
         StartCoroutine(Move());
     }
 
-    public void UpdatePath()
+    public void CorrectedPath()
     {
-        StopAllCoroutines();
-        Vector2Int cloestPoint = new Vector2Int();
-        float dist = Mathf.Infinity;
-        foreach (Node point in path)
-        {
-            float newDist = Vector2Int.Distance(new Vector2Int((int)transform.position.x, (int)transform.position.y), point.coordinates);
-            if (newDist < dist)
-            {
-                dist = newDist;
-                cloestPoint = point.coordinates;
-            }
-        }
-        Debug.Log("dist: " + dist);
-        if (dist == 0)
-        {
-            ContinuePath();
-        }
-        else
-        {
-            path = pathfinding.AStar(cloestPoint);
-            StartCoroutine(ConnectToPath());
-        }
-    }
+        StopCoroutine(Move());
 
-    IEnumerator ConnectToPath()
-    {
-        foreach (Node point in path)
-        {
-            transform.position = new Vector3(point.coordinates.x, point.coordinates.y, 0);
-            yield return new WaitForSeconds(moveInterval);
-        }
-        ContinuePath();
-    }
+        unitPath.Clear();
+        unitPath = pathfinding.AStar(new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y)), new Vector2Int(0, 0));
 
-    private void ContinuePath()
-    {
-        List<Node> spawnerPath = spawner.GetComponent<Spawner>().GetPath();
-
-        for (int i = 0; i < spawnerPath.Count; i++)
-        {
-            if (spawnerPath[i].coordinates != new Vector2Int((int)transform.position.x, (int)transform.position.y))
-            {
-                spawnerPath.Remove(spawnerPath[i]);
-            }
-            else
-            {
-                break;
-            }
-        }
-        path = spawnerPath;
-        StopAllCoroutines();
-        StartCoroutine(Move());
+        SetPath(unitPath);
     }
 }

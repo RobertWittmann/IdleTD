@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
 
     public void NewPath()
     {
-        path = pathfinding.AStar(new Vector2Int(0, 0));
+        path = pathfinding.AStar(new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y)), new Vector2Int(0, 0));
     }
 
     public List<Node> GetPath()

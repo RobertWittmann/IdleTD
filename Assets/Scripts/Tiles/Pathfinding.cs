@@ -8,7 +8,6 @@ public class Pathfinding : MonoBehaviour
 {
     [SerializeField] GameEvent pathFound;
     [SerializeField] GameEvent noPathFound;
-    // public Vector2IntReference startCoordinatesVariable;
     Vector2Int startCoordinates;
     [SerializeField] Vector2Int destinationCoordinates;
     public Vector2Int DestinationCoordinates { get { return destinationCoordinates; } }
@@ -35,16 +34,9 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    public List<Node> AStar(Vector2Int origin, Vector2Int destination)
     {
-        // startCoordinates = startCoordinatesVariable.Value;
-        // AStar();
-    }
-
-    public List<Node> AStar(Vector2Int destination)
-    {
-        startCoordinates = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-        startNode = grid[startCoordinates];
+        startNode = grid[origin];
         startNode.minDistance = 0;
         destinationNode = grid[destination];
         ResetPath();
@@ -60,7 +52,6 @@ public class Pathfinding : MonoBehaviour
             }
 
             openList.Remove(currentSearchNode);
-            // currentSearchNode.isExplored = true;
             closedList.Add(currentSearchNode);
 
             if (currentSearchNode == destinationNode)
@@ -95,7 +86,6 @@ public class Pathfinding : MonoBehaviour
         if (openList.Count == 0)
         {
             noPathFound.Raise();
-            Debug.Log("No path found");
         }
         return path;
     }
@@ -138,7 +128,6 @@ public class Pathfinding : MonoBehaviour
         currentBuildNode.isPath = true;
         path.Reverse();
         pathFound.Raise();
-        Debug.Log("path complete");
         return path;
     }
 
@@ -146,10 +135,10 @@ public class Pathfinding : MonoBehaviour
     {
         openList.Clear();
         closedList.Clear();
-        // foreach (KeyValuePair<Vector2Int, Node> entry in grid)
-        // {
-        //     entry.Value.isExplored = false;
-        //     entry.Value.isPath = false;
-        // }
+        foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+        {
+            entry.Value.isExplored = false;
+            entry.Value.isPath = false;
+        }
     }
 }

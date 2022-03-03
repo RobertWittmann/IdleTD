@@ -25,22 +25,18 @@ public class MouseInteraction : MonoBehaviour
             if (hitInfo.transform.gameObject.GetComponent<TileColour>())
             {
                 Dictionary<Vector2Int, Node> grid = gridManager.Grid;
-                foreach (KeyValuePair<Vector2Int, Node> entry in grid)
-                {
-                    entry.Value.isExplored = false;
-                    entry.Value.isPath = false;
-                }
+
 
                 Node node = gridManager.GetNode(hitInfo.transform.gameObject.GetComponent<TileColour>().Coordinates);
                 node.isWalkable = !node.isWalkable;
                 updateSpawnerPathfinding.Raise();
                 updateUnitPathfinding.Raise();
-                Debug.Log(node.coordinates);
+                // Debug.Log(node.coordinates);
             }
         }
         else
         {
-            Debug.Log("Nothing hit");
+            // Debug.Log("Nothing hit");
         }
     }
 
