@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 3078062685207904895}
   - component: {fileID: -5651472255594090288}
   - component: {fileID: -6361085745453588731}
+  - component: {fileID: -8004952319785296107}
   m_Layer: 7
   m_Name: Spawn Tile North
   m_TagString: Untagged
@@ -294,6 +295,23 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: ed134e1b2eecbe246883124ab08f2f5e, type: 2}
   spawnUnit: {fileID: 476572753879644334, guid: 8f74675e3eaf0ef428e9b979b0ee3b76, type: 3}
   spawnActive: 1
+--- !u!114 &-8004952319785296107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427582602769997925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27806aedfab113e4aa82477037cd54ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObject: {fileID: 476572753879644334, guid: 8f74675e3eaf0ef428e9b979b0ee3b76, type: 3}
+  poolSizeMax:
+    UseConstant: 0
+    ConstantValue: 2
+    Variable: {fileID: 11400000, guid: 6f956d075978fb541b1228aea9b5a777, type: 2}
 --- !u!1 &9206516582486886868
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +413,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   blockedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   exploredColor: {r: 0, g: 0.71642184, b: 1, a: 1}
+  enemyColor: {r: 0, g: 1, b: 1, a: 1}
   pathColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!61 &722750552326167505
 BoxCollider2D:

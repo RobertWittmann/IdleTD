@@ -6,6 +6,7 @@ using UnityEngine;
 public class UnitMover : MonoBehaviour
 {
     public Spawner spawner;
+    public ObjectPool pool;
     [SerializeField] float moveInterval;
     private Pathfinding pathfinding;
     private GridManager gridManager;
@@ -20,12 +21,17 @@ public class UnitMover : MonoBehaviour
 
     IEnumerator Move()
     {
-        foreach (Node point in unitPath.ToList())
+        for (int i = 0; i < unitPath.Count; i++)
         {
-            transform.position = new Vector3(point.coordinates.x, point.coordinates.y, 0);
+            transform.position = new Vector3(unitPath[i].coordinates.x, unitPath[i].coordinates.y, 0);
+            if (i > 0)
+            {
+                unitPath[i - 1].hasEnemy = false;
+            }
+            unitPath[i].hasEnemy = true;
             yield return new WaitForSeconds(moveInterval);
         }
-        Destroy(gameObject);
+        pool.ReturnPoolObject(this.gameObject);
     }
     public void CorrectedPath()
     {

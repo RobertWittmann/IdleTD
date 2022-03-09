@@ -8,6 +8,7 @@ public class Node
     public bool isWalkable;
     public bool isExplored;
     public bool isPath;
+    public bool hasEnemy;
     public Node prevNode;
     public float minDistance;
 

@@ -5,6 +5,7 @@ public class TileColour : MonoBehaviour
     [SerializeField] Color defaultColor = Color.white;
     [SerializeField] Color blockedColor = Color.gray;
     [SerializeField] Color exploredColor = Color.red;
+    [SerializeField] Color enemyColor = Color.cyan;
     [SerializeField] Color pathColor = Color.green;
 
     Vector2Int coordinates = new Vector2Int();
@@ -41,6 +42,10 @@ public class TileColour : MonoBehaviour
         if (!node.isWalkable)
         {
             spriteRenderer.color = blockedColor;
+        }
+        else if (node.hasEnemy)
+        {
+            spriteRenderer.color = enemyColor;
         }
         else if (node.isPath)
         {

@@ -8,12 +8,15 @@ public class Spawner : MonoBehaviour
     [SerializeField] Vector2IntReference spawnPosition;
     [SerializeField] GameObject spawnUnit;
     [SerializeField] bool spawnActive = true;
-    Pathfinding pathfinding;
-    List<Node> path = new List<Node>();
+    private Pathfinding pathfinding;
+    private List<Node> path = new List<Node>();
+    private ObjectPool pool;
+
 
     private void Awake()
     {
         pathfinding = GetComponent<Pathfinding>();
+        pool = GetComponent<ObjectPool>();
     }
     void Start()
     {
@@ -25,9 +28,12 @@ public class Spawner : MonoBehaviour
     {
         while (spawnActive)
         {
-            GameObject unit = Instantiate(spawnUnit, transform.position, Quaternion.identity, transform);
+            // GameObject unit = Instantiate(spawnUnit, transform.position, Quaternion.identity, transform);
+            GameObject unit = pool.GetPoolObject();
             unit.GetComponent<UnitMover>().spawner = this;
+            unit.GetComponent<UnitMover>().pool = pool;
             unit.GetComponent<UnitMover>().SetPath(path);
+
             yield return new WaitForSeconds(spawnInterval.Value);
         }
     }

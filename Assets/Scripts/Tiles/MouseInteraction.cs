@@ -26,16 +26,19 @@ public class MouseInteraction : MonoBehaviour
             {
                 Dictionary<Vector2Int, Node> grid = gridManager.Grid;
 
-
                 Node node = gridManager.GetNode(hitInfo.transform.gameObject.GetComponent<TileColour>().Coordinates);
-                node.isWalkable = !node.isWalkable;
-                foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+
+                if (!node.hasEnemy)
                 {
-                    entry.Value.isExplored = false;
-                    entry.Value.isPath = false;
+                    node.isWalkable = !node.isWalkable;
+                    foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+                    {
+                        entry.Value.isExplored = false;
+                        entry.Value.isPath = false;
+                    }
+                    updateSpawnerPathfinding.Raise();
+                    updateUnitPathfinding.Raise();
                 }
-                updateSpawnerPathfinding.Raise();
-                updateUnitPathfinding.Raise();
                 // Debug.Log(node.coordinates);
             }
         }

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8004952319785296107, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
+      propertyPath: poolSizeMax.UseConstant
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6361085745453588731, guid: 2c675629e6c0ecb488addd2ba7ba9f96, type: 3}
       propertyPath: spawnPosition.Variable
       value: 
