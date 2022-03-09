@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,7 @@ public class MouseInteraction : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     [SerializeField] GameEvent updateSpawnerPathfinding;
     [SerializeField] GameEvent updateUnitPathfinding;
+    [SerializeField] GameEvent towerClick;
     GridManager gridManager;
 
     private void Awake()
@@ -28,7 +30,11 @@ public class MouseInteraction : MonoBehaviour
 
                 Node node = gridManager.GetNode(hitInfo.transform.gameObject.GetComponent<TileColour>().Coordinates);
 
-                if (!node.hasEnemy)
+                if (node.coordinates == new Vector2Int(0, 0))
+                {
+                    DamangeAllUnits();
+                }
+                else if (!node.hasEnemy)
                 {
                     node.isWalkable = !node.isWalkable;
                     foreach (KeyValuePair<Vector2Int, Node> entry in grid)
@@ -46,6 +52,11 @@ public class MouseInteraction : MonoBehaviour
         {
             // Debug.Log("Nothing hit");
         }
+    }
+
+    private void DamangeAllUnits()
+    {
+        towerClick.Raise();
     }
 
     public void OnReset()

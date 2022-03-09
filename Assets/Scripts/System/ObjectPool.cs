@@ -20,7 +20,6 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetPoolObject()
     {
-        Debug.Log(objectPool.CountInactive);
         return objectPool.Get();
     }
 

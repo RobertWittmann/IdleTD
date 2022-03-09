@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class UnitMover : MonoBehaviour
 {
+    [SerializeField] FloatReference moveInterval;
     public Spawner spawner;
     public ObjectPool pool;
-    [SerializeField] float moveInterval;
     private Pathfinding pathfinding;
     private GridManager gridManager;
     private List<Node> unitPath = new List<Node>();

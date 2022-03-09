@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03187983db07fcb4daa9dfb6796a03dd, type: 3}
-  m_Name: EnemyPoolMax
+  m_Script: {fileID: 11500000, guid: 57556705313dd7d43a50bc31063e80ff, type: 3}
+  m_Name: TowerClick
   m_EditorClassIdentifier: 
-  DeveloperDescription: 
-  DefaultValue: 0
-  currentValue: 0

@@ -32,6 +32,7 @@ public class Spawner : MonoBehaviour
             GameObject unit = pool.GetPoolObject();
             unit.GetComponent<UnitMover>().spawner = this;
             unit.GetComponent<UnitMover>().pool = pool;
+            unit.GetComponent<UnitHealth>().pool = pool;
             unit.GetComponent<UnitMover>().SetPath(path);
 
             yield return new WaitForSeconds(spawnInterval.Value);

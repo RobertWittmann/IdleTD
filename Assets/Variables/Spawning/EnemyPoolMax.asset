@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82c6cbd2fc2ed904b99788d85a9b7502, type: 3}
-  m_Name: SpawnInterval
+  m_Script: {fileID: 11500000, guid: 03187983db07fcb4daa9dfb6796a03dd, type: 3}
+  m_Name: EnemyPoolMax
   m_EditorClassIdentifier: 
   DeveloperDescription: 
-  DefaultValue: 4
-  currentValue: 4
+  DefaultValue: 15
+  currentValue: 15
