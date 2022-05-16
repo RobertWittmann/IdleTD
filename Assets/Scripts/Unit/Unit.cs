@@ -11,7 +11,7 @@ public class Unit : MonoBehaviour
     private UnitMover _unitMover;
     private NodeSystem _nodeSystem;
     private Node _spawnNode;
-    private List<Node> _path;
+    private List<Vector2Int> _path;
 
     private Action<Unit> _killAction;
 
@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = _stats._sprite;
     }
 
-    public void Init(Spawner spawner, Action<Unit> killAction, List<Node> path, Node spawnNode)
+    public void Init(Spawner spawner, Action<Unit> killAction, List<Vector2Int> path, Node spawnNode)
     {
         _spawner = spawner;
         _killAction = killAction;

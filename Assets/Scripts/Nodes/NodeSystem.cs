@@ -47,14 +47,6 @@ public class NodeSystem : MonoBehaviour
         return _nodeGrid[pos];
     }
 
-    public void ClearNodePath()
-    {
-        foreach (KeyValuePair<Vector2Int, Node> entry in _nodeGrid)
-        {
-            entry.Value.isPath = false;
-        }
-    }
-
     private void GenerateTiles()
     {
         for (int x = _minX; x < _maxX; x++)

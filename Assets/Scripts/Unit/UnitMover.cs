@@ -8,7 +8,8 @@ public class UnitMover : MonoBehaviour
     private Unit _unit;
 
     private AStar _pathFinder;
-    private List<Node> _path;
+    private NodeSystem _nodeSystem;
+    private List<Vector2Int> _path;
 
     private Vector2Int _pos;
     private Coroutine _moveCoroutine = null;
@@ -18,6 +19,7 @@ public class UnitMover : MonoBehaviour
     {
         _unit = GetComponent<Unit>();
         _pathFinder = new AStar();
+        _nodeSystem = FindObjectOfType<NodeSystem>();
     }
 
     public void InitiateMover(Node origin, Dictionary<Vector2Int, Node> nodeDict)
@@ -25,7 +27,7 @@ public class UnitMover : MonoBehaviour
         _path = _pathFinder.FindPath(origin, nodeDict);
         ResetMover();
     }
-    public void InitiateMover(List<Node> path)
+    public void InitiateMover(List<Vector2Int> path)
     {
         _path = path;
         ResetMover();
@@ -41,9 +43,14 @@ public class UnitMover : MonoBehaviour
     {
         for (int i = 0; i < _path.Count; i++)
         {
-            _path[Mathf.Max(0, i - 1)].hasUnit = false;
-            _path[i].hasUnit = true;
-            transform.position = (Vector2)_path[i].pos;
+            if (i > 0)
+            {
+                Node _prevNode = _nodeSystem.GetNode(_path[i - 1]);
+                _prevNode.hasUnit = false;
+            }
+            Node _node = _nodeSystem.GetNode(_path[i]);
+            _node.hasUnit = true;
+            transform.position = (Vector2)_path[i];
             yield return new WaitForSeconds(_unit._Stats._moveInterval);
         }
 

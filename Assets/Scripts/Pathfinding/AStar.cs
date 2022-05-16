@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,7 +7,7 @@ public class AStar
     private Node startNode;
     private Node endNode;
 
-    public List<Node> FindPath(Node origin, Dictionary<Vector2Int, Node> nodeDict)
+    public List<Vector2Int> FindPath(Node origin, Dictionary<Vector2Int, Node> nodeDict)
     {
         List<Node> openList = new List<Node>();
         List<Node> closedList = new List<Node>();
@@ -27,7 +26,9 @@ public class AStar
 
             if (currentNode == endNode)
             {
-                return BuildPath(currentNode);
+                List<Vector2Int> _path = BuildPath(currentNode);
+                ResetNodes(nodeDict);
+                return _path;
             }
 
             List<Node> neighbours = FindNeighbours(currentNode, nodeDict);
@@ -81,23 +82,30 @@ public class AStar
         return (Mathf.Abs(startNode.pos.x - endNode.pos.x) + Mathf.Abs(startNode.pos.y - endNode.pos.y));
     }
 
-    private List<Node> BuildPath(Node node)
+    private List<Vector2Int> BuildPath(Node node)
     {
-        List<Node> path = new List<Node>();
+        List<Vector2Int> path = new List<Vector2Int>();
         while (node.parent != null)
         {
             node.isPath = true;
-            path.Add(node);
-            Node nodeParent = node.parent;
-            node.parent = null;
-            node.g = 0;
-            node.h = 0;
-            node = nodeParent;
+            path.Add(node.pos);
+            node = node.parent;
         }
         node.isPath = true;
-        path.Add(node);
+        path.Add(node.pos);
         path.Reverse();
 
         return path;
+    }
+
+    private void ResetNodes(Dictionary<Vector2Int, Node> dict)
+    {
+        foreach (KeyValuePair<Vector2Int, Node> entry in dict)
+        {
+            entry.Value.g = 0;
+            entry.Value.h = 0;
+            entry.Value.isPath = false;
+            entry.Value.parent = null;
+        }
     }
 }

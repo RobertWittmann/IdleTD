@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
     private int _spawnPosIndex = 0;
     private ObjectPool<Unit> _pool;
     private AStar _pathFinder;
-    private List<Node>[] _paths;
+    private List<Vector2Int>[] _paths;
 
     private void Awake()
     {
@@ -37,16 +37,11 @@ public class Spawner : MonoBehaviour
 
     private void SetPaths()
     {
-        _paths = new List<Node>[_spawnPositions.Length];
+        _paths = new List<Vector2Int>[_spawnPositions.Length];
         for (int i = 0; i < _spawnPositions.Length; i++)
         {
             Node _spawnNode = _nodeSystem.GetNode(_spawnPositions[i]);
             _paths[i] = _pathFinder.FindPath(_spawnNode, _nodeSystem.NodeGrid);
-            Debug.Log($"new path \n {_spawnNode.pos}");
-            foreach (Node node in _paths[i])
-            {
-                Debug.Log(node.pos);
-            }
         }
     }
 
@@ -95,7 +90,7 @@ public class Spawner : MonoBehaviour
         Destroy(obj.gameObject);
     }
 
-    public List<Node> GetSpawnerPath(Vector2Int spawnPos)
+    public List<Vector2Int> GetSpawnerPath(Vector2Int spawnPos)
     {
         for (int i = 0; i < _spawnPositions.Length; i++)
         {
