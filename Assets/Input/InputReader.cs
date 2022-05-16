@@ -33,6 +33,7 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
         if (context.started)
         {
             Dictionary<Vector2Int, Node> grid = _nodeSystem.NodeGrid;
+            if (!grid.ContainsKey(MouseToGridPosition())) return;
             Node node = _nodeSystem.GetNode(MouseToGridPosition());
 
             if (node == null) return;
