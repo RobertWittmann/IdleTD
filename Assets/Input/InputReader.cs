@@ -36,15 +36,13 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
             Node node = _nodeSystem.GetNode(MouseToGridPosition());
 
             if (node == null) return;
-            // if (node.hasUnit == true) return;
 
-            if (node.isPath) node.isPath = false;
             node.isWalkable = !node.isWalkable;
             if (!_nodeSystem.AvailablePath())
             {
                 node.isWalkable = !node.isWalkable;
                 return;
-            }
+            };
             _onBuildingPlaced.Raise();
         }
     }

@@ -42,6 +42,11 @@ public class Spawner : MonoBehaviour
         {
             Node _spawnNode = _nodeSystem.GetNode(_spawnPositions[i]);
             _paths[i] = _pathFinder.FindPath(_spawnNode, _nodeSystem.NodeGrid);
+            Debug.Log($"new path \n {_spawnNode.pos}");
+            foreach (Node node in _paths[i])
+            {
+                Debug.Log(node.pos);
+            }
         }
     }
 

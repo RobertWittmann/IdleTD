@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,14 +34,25 @@ public class NodeSystem : MonoBehaviour
     {
         foreach (Vector2Int _spawnPosition in _spawnPositions)
         {
-            if (aStar.FindPath(GetNode(_spawnPosition), _nodeGrid) != null) return true;
+            if (aStar.FindPath(GetNode(_spawnPosition), _nodeGrid) == null)
+            {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     public Node GetNode(Vector2Int pos)
     {
         return _nodeGrid[pos];
+    }
+
+    public void ClearNodePath()
+    {
+        foreach (KeyValuePair<Vector2Int, Node> entry in _nodeGrid)
+        {
+            entry.Value.isPath = false;
+        }
     }
 
     private void GenerateTiles()
@@ -71,4 +80,5 @@ public class NodeSystem : MonoBehaviour
             }
         }
     }
+
 }

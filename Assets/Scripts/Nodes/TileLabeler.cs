@@ -30,7 +30,8 @@ public class TileLabeler : MonoBehaviour
         if (tileNode.isPath) spriteRenderer.color = colorPath;
         else if (tileNode.isWalkable) spriteRenderer.color = colorDefault;
         else spriteRenderer.color = colorBlocked;
-        label.text = $"({tileNode.pos.x},{tileNode.pos.y}) \n g:{tileNode.g} \n h:{tileNode.h} \n f:{tileNode.f} \n w:{tileNode.w}";
+        // label.text = $"({tileNode.pos.x},{tileNode.pos.y}) \n g:{tileNode.g} \n h:{tileNode.h} \n f:{tileNode.f} \n w:{tileNode.w}";
         // label.text = $"({tileNode.pos.x},{tileNode.pos.y}) \n has unit: {tileNode.hasUnit}";
+        label.text = $"path: {tileNode.isPath} \n walkable: {tileNode.isWalkable}";
     }
 }
